@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BibliothèqueModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Emprinte">
+          <Key>
+            <PropertyRef Name="IdEmprinte" />
+          </Key>
+          <Property Name="IdEmprinte" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSagiaire" Type="int" />
+          <Property Name="IdLivre" Type="int" />
+          <Property Name="DateEmprinte" Type="date" />
+          <Property Name="DateRoteur" Type="date" />
+        </EntityType>
+        <EntityType Name="Filiere">
+          <Key>
+            <PropertyRef Name="IdFiliere" />
+          </Key>
+          <Property Name="IdFiliere" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomFiliere" Type="varchar" MaxLength="50" />
+          <Property Name="IdSecteur" Type="int" />
+        </EntityType>
+        <EntityType Name="Groupe">
+          <Key>
+            <PropertyRef Name="IdGroupe" />
+          </Key>
+          <Property Name="IdGroupe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomGroupe" Type="varchar" MaxLength="50" />
+          <Property Name="IdFiliere" Type="int" />
+        </EntityType>
+        <EntityType Name="Livre">
+          <Key>
+            <PropertyRef Name="IdLivre" />
+          </Key>
+          <Property Name="IdLivre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdOuvrage" Type="int" />
+          <Property Name="IspnLivre" Type="varchar" MaxLength="50" />
+          <Property Name="EtatLivre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LivrePerdu">
+          <Key>
+            <PropertyRef Name="IdLivre" />
+          </Key>
+          <Property Name="IdLivre" Type="int" Nullable="false" />
+          <Property Name="datPerdu" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ouvrage">
+          <Key>
+            <PropertyRef Name="IdOuvrage" />
+          </Key>
+          <Property Name="IdOuvrage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSecteur" Type="int" />
+          <Property Name="IdTheme" Type="int" />
+          <Property Name="TitreOuvrage" Type="varchar" MaxLength="50" />
+          <Property Name="PrixOuvrage" Type="float" />
+          <Property Name="LieuOuvrage" Type="varchar" MaxLength="50" />
+          <Property Name="AuteurOuvrage" Type="varchar" MaxLength="50" />
+          <Property Name="EditeurOuvrage" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Secteur">
+          <Key>
+            <PropertyRef Name="IdSecteur" />
+          </Key>
+          <Property Name="IdSecteur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomSecteur" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Stagiaire">
+          <Key>
+            <PropertyRef Name="IdStagiaire" />
+          </Key>
+          <Property Name="IdStagiaire" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomStagiaire" Type="varchar" MaxLength="50" />
+          <Property Name="PrenomStagiaire" Type="varchar" MaxLength="50" />
+          <Property Name="EmailStagiaire" Type="varchar(max)" />
+          <Property Name="PasswordStagiaire" Type="varchar" MaxLength="50" />
+          <Property Name="IdFGroupe" Type="int" />
+        </EntityType>
+        <EntityType Name="Theme">
+          <Key>
+            <PropertyRef Name="IdTheme" />
+          </Key>
+          <Property Name="IdTheme" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomTheme" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Emprinte__IdLivr__4AB81AF0">
+          <End Role="Livre" Type="Self.Livre" Multiplicity="0..1" />
+          <End Role="Emprinte" Type="Self.Emprinte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Livre">
+              <PropertyRef Name="IdLivre" />
+            </Principal>
+            <Dependent Role="Emprinte">
+              <PropertyRef Name="IdLivre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Emprinte__IdSagi__49C3F6B7">
+          <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="0..1" />
+          <End Role="Emprinte" Type="Self.Emprinte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagiaire">
+              <PropertyRef Name="IdStagiaire" />
+            </Principal>
+            <Dependent Role="Emprinte">
+              <PropertyRef Name="IdSagiaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Filiere__IdSecte__38996AB5">
+          <End Role="Secteur" Type="Self.Secteur" Multiplicity="0..1" />
+          <End Role="Filiere" Type="Self.Filiere" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secteur">
+              <PropertyRef Name="IdSecteur" />
+            </Principal>
+            <Dependent Role="Filiere">
+              <PropertyRef Name="IdSecteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Groupe__IdFilier__3B75D760">
+          <End Role="Filiere" Type="Self.Filiere" Multiplicity="0..1" />
+          <End Role="Groupe" Type="Self.Groupe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiere">
+              <PropertyRef Name="IdFiliere" />
+            </Principal>
+            <Dependent Role="Groupe">
+              <PropertyRef Name="IdFiliere" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Livre__IdOuvrage__46E78A0C">
+          <End Role="Ouvrage" Type="Self.Ouvrage" Multiplicity="0..1" />
+          <End Role="Livre" Type="Self.Livre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ouvrage">
+              <PropertyRef Name="IdOuvrage" />
+            </Principal>
+            <Dependent Role="Livre">
+              <PropertyRef Name="IdOuvrage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ouvrage__IdSecte__4316F928">
+          <End Role="Secteur" Type="Self.Secteur" Multiplicity="0..1" />
+          <End Role="Ouvrage" Type="Self.Ouvrage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secteur">
+              <PropertyRef Name="IdSecteur" />
+            </Principal>
+            <Dependent Role="Ouvrage">
+              <PropertyRef Name="IdSecteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ouvrage__IdTheme__440B1D61">
+          <End Role="Theme" Type="Self.Theme" Multiplicity="0..1" />
+          <End Role="Ouvrage" Type="Self.Ouvrage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Theme">
+              <PropertyRef Name="IdTheme" />
+            </Principal>
+            <Dependent Role="Ouvrage">
+              <PropertyRef Name="IdTheme" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stagiaire__IdGro__3E52440B">
+          <End Role="Groupe" Type="Self.Groupe" Multiplicity="0..1" />
+          <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groupe">
+              <PropertyRef Name="IdGroupe" />
+            </Principal>
+            <Dependent Role="Stagiaire">
+              <PropertyRef Name="IdFGroupe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LivrePerdu_Livre">
+          <End Role="Livre" Type="Self.Livre" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LivrePerdu" Type="Self.LivrePerdu" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Livre">
+              <PropertyRef Name="IdLivre" />
+            </Principal>
+            <Dependent Role="LivrePerdu">
+              <PropertyRef Name="IdLivre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BibliothèqueModelStoreContainer">
+          <EntitySet Name="Emprinte" EntityType="Self.Emprinte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Filiere" EntityType="Self.Filiere" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groupe" EntityType="Self.Groupe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Livre" EntityType="Self.Livre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LivrePerdu" EntityType="Self.LivrePerdu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ouvrage" EntityType="Self.Ouvrage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Secteur" EntityType="Self.Secteur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stagiaire" EntityType="Self.Stagiaire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Theme" EntityType="Self.Theme" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Emprinte__IdLivr__4AB81AF0" Association="Self.FK__Emprinte__IdLivr__4AB81AF0">
+            <End Role="Livre" EntitySet="Livre" />
+            <End Role="Emprinte" EntitySet="Emprinte" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Emprinte__IdSagi__49C3F6B7" Association="Self.FK__Emprinte__IdSagi__49C3F6B7">
+            <End Role="Stagiaire" EntitySet="Stagiaire" />
+            <End Role="Emprinte" EntitySet="Emprinte" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Filiere__IdSecte__38996AB5" Association="Self.FK__Filiere__IdSecte__38996AB5">
+            <End Role="Secteur" EntitySet="Secteur" />
+            <End Role="Filiere" EntitySet="Filiere" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Groupe__IdFilier__3B75D760" Association="Self.FK__Groupe__IdFilier__3B75D760">
+            <End Role="Filiere" EntitySet="Filiere" />
+            <End Role="Groupe" EntitySet="Groupe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Livre__IdOuvrage__46E78A0C" Association="Self.FK__Livre__IdOuvrage__46E78A0C">
+            <End Role="Ouvrage" EntitySet="Ouvrage" />
+            <End Role="Livre" EntitySet="Livre" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ouvrage__IdSecte__4316F928" Association="Self.FK__Ouvrage__IdSecte__4316F928">
+            <End Role="Secteur" EntitySet="Secteur" />
+            <End Role="Ouvrage" EntitySet="Ouvrage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ouvrage__IdTheme__440B1D61" Association="Self.FK__Ouvrage__IdTheme__440B1D61">
+            <End Role="Theme" EntitySet="Theme" />
+            <End Role="Ouvrage" EntitySet="Ouvrage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stagiaire__IdGro__3E52440B" Association="Self.FK__Stagiaire__IdGro__3E52440B">
+            <End Role="Groupe" EntitySet="Groupe" />
+            <End Role="Stagiaire" EntitySet="Stagiaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LivrePerdu_Livre" Association="Self.FK_LivrePerdu_Livre">
+            <End Role="Livre" EntitySet="Livre" />
+            <End Role="LivrePerdu" EntitySet="LivrePerdu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BibliothèqueModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Emprinte">
+          <Key>
+            <PropertyRef Name="IdEmprinte" />
+          </Key>
+          <Property Name="IdEmprinte" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSagiaire" Type="Int32" />
+          <Property Name="IdLivre" Type="Int32" />
+          <Property Name="DateEmprinte" Type="DateTime" Precision="0" />
+          <Property Name="DateRoteur" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Livre" Relationship="Self.FK__Emprinte__IdLivr__38996AB5" FromRole="Emprinte" ToRole="Livre" />
+          <NavigationProperty Name="Stagiaire" Relationship="Self.FK__Emprinte__IdSagi__37A5467C" FromRole="Emprinte" ToRole="Stagiaire" />
+        </EntityType>
+        <EntityType Name="Filiere">
+          <Key>
+            <PropertyRef Name="IdFiliere" />
+          </Key>
+          <Property Name="IdFiliere" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomFiliere" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdSecteur" Type="Int32" />
+          <NavigationProperty Name="Secteur" Relationship="Self.FK__Filiere__IdSecte__267ABA7A" FromRole="Filiere" ToRole="Secteur" />
+          <NavigationProperty Name="Groupe" Relationship="Self.FK__Groupe__IdFilier__29572725" FromRole="Filiere" ToRole="Groupe" />
+        </EntityType>
+        <EntityType Name="Groupe">
+          <Key>
+            <PropertyRef Name="IdGroupe" />
+          </Key>
+          <Property Name="IdGroupe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomGroupe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdFiliere" Type="Int32" />
+          <NavigationProperty Name="Filiere" Relationship="Self.FK__Groupe__IdFilier__29572725" FromRole="Groupe" ToRole="Filiere" />
+          <NavigationProperty Name="Stagiaire" Relationship="Self.FK__Stagiaire__IdFGr__2C3393D0" FromRole="Groupe" ToRole="Stagiaire" />
+        </EntityType>
+        <EntityType Name="Livre">
+          <Key>
+            <PropertyRef Name="IdLivre" />
+          </Key>
+          <Property Name="IdLivre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOuvrage" Type="Int32" />
+          <Property Name="IspnLivre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EtatLivre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Emprinte" Relationship="Self.FK__Emprinte__IdLivr__38996AB5" FromRole="Livre" ToRole="Emprinte" />
+          <NavigationProperty Name="Ouvrage" Relationship="Self.FK__Livre__IdOuvrage__34C8D9D1" FromRole="Livre" ToRole="Ouvrage" />
+          <NavigationProperty Name="LivrePerdu" Relationship="BibliothèqueModel.FK_LivrePerdu_Livre" FromRole="Livre" ToRole="LivrePerdu" />
+        </EntityType>
+        <EntityType Name="Ouvrage">
+          <Key>
+            <PropertyRef Name="IdOuvrage" />
+          </Key>
+          <Property Name="IdOuvrage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSecteur" Type="Int32" />
+          <Property Name="IdTheme" Type="Int32" />
+          <Property Name="TitreOuvrage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrixOuvrage" Type="Double" />
+          <Property Name="LieuOuvrage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AuteurOuvrage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EditeurOuvrage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Livre" Relationship="Self.FK__Livre__IdOuvrage__34C8D9D1" FromRole="Ouvrage" ToRole="Livre" />
+          <NavigationProperty Name="Secteur" Relationship="Self.FK__Ouvrage__IdSecte__30F848ED" FromRole="Ouvrage" ToRole="Secteur" />
+          <NavigationProperty Name="Theme" Relationship="Self.FK__Ouvrage__IdTheme__31EC6D26" FromRole="Ouvrage" ToRole="Theme" />
+        </EntityType>
+        <EntityType Name="Secteur">
+          <Key>
+            <PropertyRef Name="IdSecteur" />
+          </Key>
+          <Property Name="IdSecteur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomSecteur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Filiere" Relationship="Self.FK__Filiere__IdSecte__267ABA7A" FromRole="Secteur" ToRole="Filiere" />
+          <NavigationProperty Name="Ouvrage" Relationship="Self.FK__Ouvrage__IdSecte__30F848ED" FromRole="Secteur" ToRole="Ouvrage" />
+        </EntityType>
+        <EntityType Name="Stagiaire">
+          <Key>
+            <PropertyRef Name="IdStagiaire" />
+          </Key>
+          <Property Name="IdStagiaire" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomStagiaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrenomStagiaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailStagiaire" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordStagiaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdFGroupe" Type="Int32" />
+          <NavigationProperty Name="Emprinte" Relationship="Self.FK__Emprinte__IdSagi__37A5467C" FromRole="Stagiaire" ToRole="Emprinte" />
+          <NavigationProperty Name="Groupe" Relationship="Self.FK__Stagiaire__IdFGr__2C3393D0" FromRole="Stagiaire" ToRole="Groupe" />
+        </EntityType>
+        <EntityType Name="Theme">
+          <Key>
+            <PropertyRef Name="IdTheme" />
+          </Key>
+          <Property Name="IdTheme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomTheme" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ouvrage" Relationship="Self.FK__Ouvrage__IdTheme__31EC6D26" FromRole="Theme" ToRole="Ouvrage" />
+        </EntityType>
+        <Association Name="FK__Emprinte__IdLivr__38996AB5">
+          <End Role="Livre" Type="Self.Livre" Multiplicity="0..1" />
+          <End Role="Emprinte" Type="Self.Emprinte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Livre">
+              <PropertyRef Name="IdLivre" />
+            </Principal>
+            <Dependent Role="Emprinte">
+              <PropertyRef Name="IdLivre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Emprinte__IdSagi__37A5467C">
+          <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="0..1" />
+          <End Role="Emprinte" Type="Self.Emprinte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagiaire">
+              <PropertyRef Name="IdStagiaire" />
+            </Principal>
+            <Dependent Role="Emprinte">
+              <PropertyRef Name="IdSagiaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Filiere__IdSecte__267ABA7A">
+          <End Role="Secteur" Type="Self.Secteur" Multiplicity="0..1" />
+          <End Role="Filiere" Type="Self.Filiere" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secteur">
+              <PropertyRef Name="IdSecteur" />
+            </Principal>
+            <Dependent Role="Filiere">
+              <PropertyRef Name="IdSecteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Groupe__IdFilier__29572725">
+          <End Role="Filiere" Type="Self.Filiere" Multiplicity="0..1" />
+          <End Role="Groupe" Type="Self.Groupe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiere">
+              <PropertyRef Name="IdFiliere" />
+            </Principal>
+            <Dependent Role="Groupe">
+              <PropertyRef Name="IdFiliere" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stagiaire__IdFGr__2C3393D0">
+          <End Role="Groupe" Type="Self.Groupe" Multiplicity="0..1" />
+          <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groupe">
+              <PropertyRef Name="IdGroupe" />
+            </Principal>
+            <Dependent Role="Stagiaire">
+              <PropertyRef Name="IdFGroupe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Livre__IdOuvrage__34C8D9D1">
+          <End Role="Ouvrage" Type="Self.Ouvrage" Multiplicity="0..1" />
+          <End Role="Livre" Type="Self.Livre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ouvrage">
+              <PropertyRef Name="IdOuvrage" />
+            </Principal>
+            <Dependent Role="Livre">
+              <PropertyRef Name="IdOuvrage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ouvrage__IdSecte__30F848ED">
+          <End Role="Secteur" Type="Self.Secteur" Multiplicity="0..1" />
+          <End Role="Ouvrage" Type="Self.Ouvrage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secteur">
+              <PropertyRef Name="IdSecteur" />
+            </Principal>
+            <Dependent Role="Ouvrage">
+              <PropertyRef Name="IdSecteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ouvrage__IdTheme__31EC6D26">
+          <End Role="Theme" Type="Self.Theme" Multiplicity="0..1" />
+          <End Role="Ouvrage" Type="Self.Ouvrage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Theme">
+              <PropertyRef Name="IdTheme" />
+            </Principal>
+            <Dependent Role="Ouvrage">
+              <PropertyRef Name="IdTheme" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BibliothèqueEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Emprinte" EntityType="Self.Emprinte" />
+          <EntitySet Name="Filiere" EntityType="Self.Filiere" />
+          <EntitySet Name="Groupe" EntityType="Self.Groupe" />
+          <EntitySet Name="Livre" EntityType="Self.Livre" />
+          <EntitySet Name="Ouvrage" EntityType="Self.Ouvrage" />
+          <EntitySet Name="Secteur" EntityType="Self.Secteur" />
+          <EntitySet Name="Stagiaire" EntityType="Self.Stagiaire" />
+          <EntitySet Name="Theme" EntityType="Self.Theme" />
+          <AssociationSet Name="FK__Emprinte__IdLivr__38996AB5" Association="Self.FK__Emprinte__IdLivr__38996AB5">
+            <End Role="Livre" EntitySet="Livre" />
+            <End Role="Emprinte" EntitySet="Emprinte" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Emprinte__IdSagi__37A5467C" Association="Self.FK__Emprinte__IdSagi__37A5467C">
+            <End Role="Stagiaire" EntitySet="Stagiaire" />
+            <End Role="Emprinte" EntitySet="Emprinte" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Filiere__IdSecte__267ABA7A" Association="Self.FK__Filiere__IdSecte__267ABA7A">
+            <End Role="Secteur" EntitySet="Secteur" />
+            <End Role="Filiere" EntitySet="Filiere" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Groupe__IdFilier__29572725" Association="Self.FK__Groupe__IdFilier__29572725">
+            <End Role="Filiere" EntitySet="Filiere" />
+            <End Role="Groupe" EntitySet="Groupe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stagiaire__IdFGr__2C3393D0" Association="Self.FK__Stagiaire__IdFGr__2C3393D0">
+            <End Role="Groupe" EntitySet="Groupe" />
+            <End Role="Stagiaire" EntitySet="Stagiaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Livre__IdOuvrage__34C8D9D1" Association="Self.FK__Livre__IdOuvrage__34C8D9D1">
+            <End Role="Ouvrage" EntitySet="Ouvrage" />
+            <End Role="Livre" EntitySet="Livre" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ouvrage__IdSecte__30F848ED" Association="Self.FK__Ouvrage__IdSecte__30F848ED">
+            <End Role="Secteur" EntitySet="Secteur" />
+            <End Role="Ouvrage" EntitySet="Ouvrage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ouvrage__IdTheme__31EC6D26" Association="Self.FK__Ouvrage__IdTheme__31EC6D26">
+            <End Role="Theme" EntitySet="Theme" />
+            <End Role="Ouvrage" EntitySet="Ouvrage" />
+          </AssociationSet>
+          <EntitySet Name="LivrePerdus" EntityType="BibliothèqueModel.LivrePerdu" />
+          <AssociationSet Name="FK_LivrePerdu_Livre" Association="BibliothèqueModel.FK_LivrePerdu_Livre">
+            <End Role="Livre" EntitySet="Livre" />
+            <End Role="LivrePerdu" EntitySet="LivrePerdus" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="LivrePerdu">
+          <Key>
+            <PropertyRef Name="IdLivre" />
+          </Key>
+          <Property Name="IdLivre" Type="Int32" Nullable="false" />
+          <Property Name="datPerdu" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Livre" Relationship="BibliothèqueModel.FK_LivrePerdu_Livre" FromRole="LivrePerdu" ToRole="Livre" />
+        </EntityType>
+        <Association Name="FK_LivrePerdu_Livre">
+          <End Type="BibliothèqueModel.Livre" Role="Livre" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BibliothèqueModel.LivrePerdu" Role="LivrePerdu" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Livre">
+              <PropertyRef Name="IdLivre" />
+            </Principal>
+            <Dependent Role="LivrePerdu">
+              <PropertyRef Name="IdLivre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BibliothèqueModelStoreContainer" CdmEntityContainer="BibliothèqueEntities">
+          <EntitySetMapping Name="Emprinte">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Emprinte">
+              <MappingFragment StoreEntitySet="Emprinte">
+                <ScalarProperty Name="IdEmprinte" ColumnName="IdEmprinte" />
+                <ScalarProperty Name="IdSagiaire" ColumnName="IdSagiaire" />
+                <ScalarProperty Name="IdLivre" ColumnName="IdLivre" />
+                <ScalarProperty Name="DateEmprinte" ColumnName="DateEmprinte" />
+                <ScalarProperty Name="DateRoteur" ColumnName="DateRoteur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Filiere">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Filiere">
+              <MappingFragment StoreEntitySet="Filiere">
+                <ScalarProperty Name="IdFiliere" ColumnName="IdFiliere" />
+                <ScalarProperty Name="NomFiliere" ColumnName="NomFiliere" />
+                <ScalarProperty Name="IdSecteur" ColumnName="IdSecteur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groupe">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Groupe">
+              <MappingFragment StoreEntitySet="Groupe">
+                <ScalarProperty Name="IdGroupe" ColumnName="IdGroupe" />
+                <ScalarProperty Name="NomGroupe" ColumnName="NomGroupe" />
+                <ScalarProperty Name="IdFiliere" ColumnName="IdFiliere" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Livre">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Livre">
+              <MappingFragment StoreEntitySet="Livre">
+                <ScalarProperty Name="IdLivre" ColumnName="IdLivre" />
+                <ScalarProperty Name="IdOuvrage" ColumnName="IdOuvrage" />
+                <ScalarProperty Name="IspnLivre" ColumnName="IspnLivre" />
+                <ScalarProperty Name="EtatLivre" ColumnName="EtatLivre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ouvrage">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Ouvrage">
+              <MappingFragment StoreEntitySet="Ouvrage">
+                <ScalarProperty Name="IdOuvrage" ColumnName="IdOuvrage" />
+                <ScalarProperty Name="IdSecteur" ColumnName="IdSecteur" />
+                <ScalarProperty Name="IdTheme" ColumnName="IdTheme" />
+                <ScalarProperty Name="TitreOuvrage" ColumnName="TitreOuvrage" />
+                <ScalarProperty Name="PrixOuvrage" ColumnName="PrixOuvrage" />
+                <ScalarProperty Name="LieuOuvrage" ColumnName="LieuOuvrage" />
+                <ScalarProperty Name="AuteurOuvrage" ColumnName="AuteurOuvrage" />
+                <ScalarProperty Name="EditeurOuvrage" ColumnName="EditeurOuvrage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Secteur">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Secteur">
+              <MappingFragment StoreEntitySet="Secteur">
+                <ScalarProperty Name="IdSecteur" ColumnName="IdSecteur" />
+                <ScalarProperty Name="NomSecteur" ColumnName="NomSecteur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stagiaire">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Stagiaire">
+              <MappingFragment StoreEntitySet="Stagiaire">
+                <ScalarProperty Name="IdStagiaire" ColumnName="IdStagiaire" />
+                <ScalarProperty Name="NomStagiaire" ColumnName="NomStagiaire" />
+                <ScalarProperty Name="PrenomStagiaire" ColumnName="PrenomStagiaire" />
+                <ScalarProperty Name="EmailStagiaire" ColumnName="EmailStagiaire" />
+                <ScalarProperty Name="PasswordStagiaire" ColumnName="PasswordStagiaire" />
+                <ScalarProperty Name="IdFGroupe" ColumnName="IdFGroupe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Theme">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Theme">
+              <MappingFragment StoreEntitySet="Theme">
+                <ScalarProperty Name="IdTheme" ColumnName="IdTheme" />
+                <ScalarProperty Name="NomTheme" ColumnName="NomTheme" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LivrePerdus">
+            <EntityTypeMapping TypeName="BibliothèqueModel.LivrePerdu">
+              <MappingFragment StoreEntitySet="LivrePerdu">
+                <ScalarProperty Name="datPerdu" ColumnName="datPerdu" />
+                <ScalarProperty Name="IdLivre" ColumnName="IdLivre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

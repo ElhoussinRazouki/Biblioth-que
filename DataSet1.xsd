@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Report" msprop:Generator_TableClassName="ReportDataTable" msprop:Generator_TableVarName="tableReport" msprop:Generator_RowChangedName="ReportRowChanged" msprop:Generator_TablePropName="Report" msprop:Generator_RowDeletingName="ReportRowDeleting" msprop:Generator_RowChangingName="ReportRowChanging" msprop:Generator_RowEvHandlerName="ReportRowChangeEventHandler" msprop:Generator_RowDeletedName="ReportRowDeleted" msprop:Generator_RowClassName="ReportRow" msprop:Generator_UserTableName="Report" msprop:Generator_RowEvArgName="ReportRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdStagiaire" msprop:Generator_ColumnVarNameInTable="columnIdStagiaire" msprop:Generator_ColumnPropNameInRow="IdStagiaire" msprop:Generator_ColumnPropNameInTable="IdStagiaireColumn" msprop:Generator_UserColumnName="IdStagiaire" type="xs:string" />
+              <xs:element name="Stagiaire" msprop:Generator_ColumnVarNameInTable="columnStagiaire" msprop:Generator_ColumnPropNameInRow="Stagiaire" msprop:Generator_ColumnPropNameInTable="StagiaireColumn" msprop:Generator_UserColumnName="Stagiaire" type="xs:string" />
+              <xs:element name="Filiere" msprop:Generator_ColumnVarNameInTable="columnFiliere" msprop:Generator_ColumnPropNameInRow="Filiere" msprop:Generator_ColumnPropNameInTable="FiliereColumn" msprop:Generator_UserColumnName="Filiere" type="xs:string" minOccurs="0" />
+              <xs:element name="Groupe" msprop:Generator_ColumnVarNameInTable="columnGroupe" msprop:Generator_ColumnPropNameInRow="Groupe" msprop:Generator_ColumnPropNameInTable="GroupeColumn" msprop:Generator_UserColumnName="Groupe" type="xs:string" minOccurs="0" />
+              <xs:element name="DataEmprint" msprop:Generator_ColumnVarNameInTable="columnDataEmprint" msprop:Generator_ColumnPropNameInRow="DataEmprint" msprop:Generator_ColumnPropNameInTable="DataEmprintColumn" msprop:Generator_UserColumnName="DataEmprint" type="xs:string" minOccurs="0" />
+              <xs:element name="TitreOuvrage" msprop:Generator_ColumnVarNameInTable="columnTitreOuvrage" msprop:Generator_ColumnPropNameInRow="TitreOuvrage" msprop:Generator_ColumnPropNameInTable="TitreOuvrageColumn" msprop:Generator_UserColumnName="TitreOuvrage" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="StagiaireReport" msprop:Generator_TableClassName="StagiaireReportDataTable" msprop:Generator_TableVarName="tableStagiaireReport" msprop:Generator_TablePropName="StagiaireReport" msprop:Generator_RowDeletingName="StagiaireReportRowDeleting" msprop:Generator_RowChangingName="StagiaireReportRowChanging" msprop:Generator_RowEvHandlerName="StagiaireReportRowChangeEventHandler" msprop:Generator_RowDeletedName="StagiaireReportRowDeleted" msprop:Generator_UserTableName="StagiaireReport" msprop:Generator_RowChangedName="StagiaireReportRowChanged" msprop:Generator_RowEvArgName="StagiaireReportRowChangeEvent" msprop:Generator_RowClassName="StagiaireReportRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdStagiaire" msprop:Generator_ColumnVarNameInTable="columnIdStagiaire" msprop:Generator_ColumnPropNameInRow="IdStagiaire" msprop:Generator_ColumnPropNameInTable="IdStagiaireColumn" msprop:Generator_UserColumnName="IdStagiaire" type="xs:string" minOccurs="0" />
+              <xs:element name="NomStagiaire" msprop:Generator_ColumnVarNameInTable="columnNomStagiaire" msprop:Generator_ColumnPropNameInRow="NomStagiaire" msprop:Generator_ColumnPropNameInTable="NomStagiaireColumn" msprop:Generator_UserColumnName="NomStagiaire" type="xs:string" minOccurs="0" />
+              <xs:element name="PrenomStagiaire" msprop:Generator_ColumnVarNameInTable="columnPrenomStagiaire" msprop:Generator_ColumnPropNameInRow="PrenomStagiaire" msprop:Generator_ColumnPropNameInTable="PrenomStagiaireColumn" msprop:Generator_UserColumnName="PrenomStagiaire" type="xs:string" minOccurs="0" />
+              <xs:element name="IspnLivre" msprop:Generator_ColumnVarNameInTable="columnIspnLivre" msprop:Generator_ColumnPropNameInRow="IspnLivre" msprop:Generator_ColumnPropNameInTable="IspnLivreColumn" msprop:Generator_UserColumnName="IspnLivre" type="xs:string" minOccurs="0" />
+              <xs:element name="PrixLivre" msprop:Generator_ColumnVarNameInTable="columnPrixLivre" msprop:Generator_ColumnPropNameInRow="PrixLivre" msprop:Generator_ColumnPropNameInTable="PrixLivreColumn" msprop:Generator_UserColumnName="PrixLivre" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="DataTable1Key1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Report" />
+      <xs:field xpath="mstns:IdStagiaire" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
